@@ -35,5 +35,13 @@ function addParameter(url, param, value) {
     }
 }
   
-console.log(getParameter(window.location.href,"arg"));
+//console.log(getParameter(window.location.href,"arg"));
+
+var pVersion=getParameter(window.location.href,"pVersion");
+var contRep=getParameter(window.location.href,"contRep");
+var docId=getParameter(window.location.href,"docId");
+    
+var targetURL="https://ussomlnxp0328.allergan.com:8090/archive?get&pVersion=" + pVersion + "&contRep=" + contRep +  "&docId=" + docId;
+document.write ("Redirecting to:<br/>"+targetURL);
+ 
 </script>

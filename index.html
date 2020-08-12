@@ -43,5 +43,5 @@ var docId=getParameter(window.location.href,"docId");
     
 var targetURL="https://ussomlnxp0328.allergan.com:8090/archive?get&pVersion=" + pVersion + "&contRep=" + contRep +  "&docId=" + docId;
 document.write ("Redirecting to:<br/>"+targetURL);
-setTimeout(function(){ ( window.location=targetURL }, 1000); 
+setTimeout(function(){ window.location=targetURL }, 1000); 
 </script>

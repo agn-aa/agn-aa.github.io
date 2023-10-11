@@ -11,8 +11,43 @@ $( document ).ready(function() {
 	
 	$('#video').css('width', width*0.81) ;
 	$('#video').css('height', height*0.8) ;
+	
+	$('.sprite').css('top', height*0.8-287);
 });
 </script>
+<style>
+.sprite {
+  position: absolute;
+  left: -200px;
+  top: 0px;
+  width: 200px;
+  height: 387px;
+  margin-top: 40px;
+}
+
+.walk-left {
+  background-image: url(zombie_walk.png);
+  animation-name: walk, slide-from-left;
+  animation-duration: 2s, 30s;
+  animation-iteration-count: infinite, 1;
+  animation-timing-function: steps(10, end), steps(200, end);
+}
+
+
+@keyframes walk {
+	from {background-position: 0px; }
+	to {background-position: -2000px; }
+}
+
+@keyframes slide-from-left {
+  from {
+    left: 100%;
+  }
+  to {
+    left: -200px;
+  }
+}
+</style>
 </head>
 <body style="margin: 0;">
 <table cellpadding="0" border="0" cellspacing="0" width="100%" id="dynamicheight" style="background-image: url('Frame.png'); background-size: cover">
@@ -33,5 +68,6 @@ $( document ).ready(function() {
     <td style="width: 10%;  height: 8%"></td>
 </tr>
 </table>
+<div class="sprite walk-left"></div>
 </body>
 </html>

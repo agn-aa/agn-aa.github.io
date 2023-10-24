@@ -16,36 +16,148 @@ $( document ).ready(function() {
 });
 </script>
 <style>
-.sprite {
+/*zombie*/
+.sprite_0 {
   position: absolute;
   left: -200px;
-  top: 0px;
+  top: 600px;
   width: 200px;
   height: 387px;
   margin-top: 40px;
 }
-
-.walk-left {
+.animation_0 {
   background-image: url(zombie_walk.png);
-  animation-name: walk, slide-from-left;
+  animation-name: kf_0_0, kf_0_1;
   animation-duration: 2s, 30s;
   animation-iteration-count: infinite, 1;
   animation-timing-function: steps(10, end), steps(300, end);
+  animation-delay: 0s, 6s;
 }
-
-
-@keyframes walk {
+@keyframes kf_0_0 {
 	from {background-position: 0px; }
 	to {background-position: -2000px; }
 }
+@keyframes kf_0_1 {
+  from {left: 100%;}
+  to {left: -200px;}
+}
 
-@keyframes slide-from-left {
-  from {
-    left: 100%;
-  }
-  to {
-    left: -200px;
-  }
+/*vampire*/
+.sprite_1 {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  width: 512px;
+  height: 384px;
+  margin-top: 40px;
+}
+.animation_1 {
+  background-image: url(vampire_cougar.png);
+  animation-name: kf_1_1, kf_1_2;
+  animation-duration: 2s, 5s;
+  animation-iteration-count: 1, 1;
+  animation-timing-function: steps(13, end), steps(200, end);
+  animation-delay: 5s, 0s;
+}
+@keyframes kf_1_1 {
+	from {background-position: 0px; }
+	to {background-position: -6656px; }
+}
+@keyframes kf_1_2 {
+  from {top: 100%;}
+  to {top: 50%;}
+}
+
+
+/*vampire disappear*/
+.sprite_2 {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  width: 332px;
+  height: 380px;
+  margin-top: 40px;
+}
+
+.animation_2 {
+  background-image: url(vampire_cougar_disappear.png);
+  animation-name: kf_2_1;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(12, end);
+  animation-fill-mode: forwards;
+}
+
+@keyframes kf_2_1 {
+	from {background-position: 0px; }
+	to {background-position: -3984px; }
+}
+
+/*student work*/
+
+.sprite_3 {
+  position: absolute;
+  left: 18%;
+  top: 1%;
+  width: 1155px;
+  height: 891px;
+  margin-top: 40px;
+}
+
+.animation_3 {
+  animation: kf_3_1 2s ease 50s 1 normal forwards;
+}
+
+@keyframes kf_3_1 {
+	0% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+		transform: translateY(-250px);
+	}
+
+	38% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-out;
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	55% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-in;
+		transform: translateY(-65px);
+	}
+
+	72% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	81% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-in;
+		transform: translateY(-28px);
+	}
+
+	90% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	95% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-in;
+		transform: translateY(-8px);
+	}
+
+	100% {
+		background-image: url(EmiliaS.jpg);
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
 }
 </style>
 </head>
@@ -59,7 +171,7 @@ $( document ).ready(function() {
   <tr>
     <td style="width: 10%"></td>
     <!--td style="width: 80%"><iframe id="video" marginwidth="0" src="https://www.youtube.com/embed/oWvOZBJFKAA?si=YAFrubZTK2Ym5pGl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td-->
-	<td style="width: 80%"><iframe id="video" marginwidth="0" src="https://www.youtube.com/embed/_yt9lTX0AEU?&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
+	<td style="width: 80%"><iframe id="video" marginwidth="0" src="https://www.youtube.com/embed/_yt9lTX0AEU?si=NLMInUVA_wEyvcNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
     <td style="width: 10%"></td>
 </tr>
   <tr>
@@ -68,6 +180,27 @@ $( document ).ready(function() {
     <td style="width: 10%;  height: 8%"></td>
 </tr>
 </table>
-<div class="sprite walk-left"></div>
+<div id="sprite_container"></div>
+<script>
+var sprite = document.querySelector('#sprite_container'), i=0, maxAnimCount=4, animInterval=null;
+
+var animFunction=function () {
+	if(i>0){
+		sprite.classList.remove('sprite_'+(i-1));
+		sprite.classList.remove('animation_'+(i-1));
+		}
+	if(animInterval && i==maxAnimCount){
+		//clearInterval(animInterval);
+		i=0;
+		}
+	sprite.classList.add('sprite_'+i);
+	sprite.classList.add('animation_'+i);
+	i++;
+	};
+	
+animFunction();
+
+animInterval=setInterval(animFunction, 60000);
+</script>
 </body>
 </html>
